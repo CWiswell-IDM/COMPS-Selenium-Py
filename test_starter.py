@@ -41,6 +41,7 @@ class TestUIStructure(unittest.TestCase):
         self.test_password = self.config.get(env, 'test_password')
         self.live_username = self.config.get(env, 'live_username')
         self.live_password = self.config.get(env, 'live_password')
+        self.bad_password = self.config.get(env, 'bad_password')
 
     def launch_page(self):
         if self.browser == "chrome":
@@ -94,6 +95,20 @@ class TestUIStructure(unittest.TestCase):
         signin.sign_in_as(self.test_username, self.test_password)
         dashboard = comps_selenium_pages.DashboardPage(self.driver)
         self.assertEqual(dashboard.expected_title, self.driver.title)
+
+    def test_login_badpassword(self):
+        signin = self.launch_page()
+        body = self.driver.find_element_by_tag_name("body")
+        bodyclass = body.get_attribute("class")
+        logging.info("Bodyclass before login: " + str(bodyclass))
+        signin.sign_in_as(self.test_username, self.bad_password)
+        body = self.driver.find_element_by_tag_name("body")
+        bodyclass = body.get_attribute("class")
+        logging.info("Body class after bad: " + str(bodyclass))
+        time.sleep(5)
+        signin.sign_in_as(self.test_username, self.test_password)
+        bodyclass = body.get_attribute("class")
+        logging.info("Body class after good: " + str(bodyclass))
 
     def test_nav_around(self):
         dashboard = self.launch_dashboard()

@@ -1,0 +1,28 @@
+[ACTIVE]
+environment = TEST
+browser = chrome
+loglevel = INFO
+
+[LOG]
+do_logging = True
+loglevel = INFO
+logname = log_compsui_{date}.log
+lognameformat = %(asctime)s: %(levelname)s: %(message)s
+dateformat = %m/%d/%Y %H:%M:%S
+
+[TEST]
+base_url = http://comps2.idmod.org
+test_username = SomeTestUsername
+test_password = SomeTestPassword
+live_username = ARealUsername
+live_password = ARealPassword
+bad_password = password
+all_letters_sim_id = b2c5bcdc-67d7-e511-93f9-0050569e0ef3
+many_tags_sim_id = 491e4c67-42db-e511-93f9-0050569e0ef3
+
+[DEV]
+base_url = http://na01802d.na.corp.intven.com:41523
+test_username = DevUsername
+test_password = AGoodPassword
+live_username = AdminUsername
+live_password = AGoodPassword
