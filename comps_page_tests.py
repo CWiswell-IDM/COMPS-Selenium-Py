@@ -70,6 +70,10 @@ class CompsPageTest(unittest.TestCase):
         else:
             raise ValueError("{b} isn't going to work".format(b=browser))
 
+    def launch_page(self):
+        self.launch_whatever(self.curr_browser)
+        self.driver.get(self.config.get_baseurl())
+
     def tearDown(self):
         if self.driver:
             self.driver.quit()

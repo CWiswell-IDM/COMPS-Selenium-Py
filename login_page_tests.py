@@ -7,7 +7,8 @@ from selenium import webdriver
 
 class TestLoginPage(comps_page_tests.CompsPageTest):
     def test_login_testuser(self):
-        signin = self.launch_page()
+        self.launch_page()
+        signin = comps_selenium_pages.SignInPage(self.driver)
         gooduser = self.config.get_testuser()
         goodpass = self.config.get_testpassword()
         signin.sign_in_as(gooduser, goodpass)
@@ -16,16 +17,11 @@ class TestLoginPage(comps_page_tests.CompsPageTest):
         self.assertEqual("COMPS: Dashboard", self.driver.title)
 
     def test_login_failpassword(self):
-        signin = self.launch_page()
+        self.launch_page()
+        signin = comps_selenium_pages.SignInPage(self.driver)
         gooduser = self.config.get_testuser()
         badpass = self.config.get_badpassword()
         signin.sign_in_as(gooduser, badpass)
         time.sleep(10) #Not proud, but there is a 5 sec delay built in
         self.assertEqual("COMPS", self.driver.title)
         #Add a check for the error bubble?
-
-    def launch_page(self):
-        self.launch_whatever(self.curr_browser)
-        self.driver.get(self.config.get_baseurl())
-        signin = comps_selenium_pages.SignInPage(self.driver)
-        return signin
